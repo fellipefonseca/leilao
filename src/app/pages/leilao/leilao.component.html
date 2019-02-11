@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div style="margin-top:5em" class="single">
+  <div class="container">
+    <div *ngIf="product" class="single-main">
+      <div class="single-top-main row">
+        <div class="col-md-5 single-top">
+          <div class="thumb-image">
+            <img src="{{storagePath}}images%2Fauctions%2F{{product.key}}?alt=media" alt="" data-imagezoom="true"
+              class="img-responsive" draggable="false">
+          </div>
+          <!--<div class="srch">
+            <span style="margin-left: -7.3em;">R$ {{product.price}}</span>
+          </div>-->
+        </div>
+        <div *ngIf="bids " class="col-md-7 single-top-left simpleCart_shelfItem">
+          <h1>{{product.name}}</h1>
+          <h3 style="font-size:1.2em;   color:gray; font-weight: 600;">Termina em {{formatFinalDate(product.finalTime)}}
+          </h3>
+          <p>{{product.description}}</p>
+
+          <ul *ngIf="!loading && product.active && bids && bids.length>0" class="bann-btns">
+            <li><a style="background:green; color:white" class="item_add" (click)="bid(product)"><span> dar lance:
+                  R$ {{bids[0].value+5}}</span></a></li>
+          </ul>
+
+          <ul *ngIf="!loading && product.active && (!bids || bids.length==0)" class="bann-btns">
+              <li><a style="background:green; color:white" class="item_add" (click)="bid(product)"><span> dar lance:
+                    R$ {{product.price}}</span></a></li>
+            </ul>
+  
+          <ul *ngIf="!loading && !product.active && bids && bids.length>0" class="bann-btns">
+            <li>
+              <a style="background:green; color:white" class="item_add"><span> Vendido
+                  a {{bids[0].login}} por  R${{bids[0].value}}</span></a>
+                </li>
+          </ul>
+          <p *ngIf="!loading && product.active && bids && bids.length>0"> último lance: R${{bids[0].value}} por {{bids[0].login}}</p>
+
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+      <h3 style="margin-top:3em; margin-bottom:2em; font-weight:600">
+        Lances
+      </h3>
+      <div *ngIf="!loading" style="height: 20em; overflow-y:scroll">
+        <div *ngFor="let bid of bids">
+          <h4>{{bid.login}} <span style="color:gray; font-size:0.8em">- {{formatTime(bid.time)}}</span></h4>
+          <p style="color:green; font-size:1em">R$ {{bid.value}}</p>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

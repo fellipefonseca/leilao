@@ -1,0 +1,43 @@
+<div class="login-page">
+  <div class="row">
+    <div class="col-md-4 push-md-4">
+      <!--<img src="assets/images/logo.png" width="150px" class="user-avatar" />-->
+      <h1>Leilão legal</h1>
+      <form [formGroup]="formGroup" autocomplete="false" (ngSubmit)="signIn(formGroup.value)">
+        <div class="form-content">
+          <div class="form-group">
+            <input class="form-control input-underline input-lg"
+              [ngClass]="{'has-error':!formGroup.controls['email'].valid && formGroup.controls['email'].touched}"
+              type="email" placeholder="Email" [formControl]="formGroup.controls['email']">
+            <div *ngIf="formGroup.controls['email'].hasError('required') && formGroup.controls['email'].touched"
+              class="alert alert-danger">É necessário informar o email.</div>
+            <div *ngIf="formGroup.controls['email'].hasError('email') && formGroup.controls['email'].touched"
+              class="alert alert-danger">Insira um email válido.</div>
+          </div>
+
+          <div class="form-group">
+            <input class="form-control input-underline input-lg"
+              [ngClass]="{'has-error':!formGroup.controls['password'].valid && formGroup.controls['password'].touched}"
+              type="password" placeholder="Senha" [formControl]="formGroup.controls['password']">
+            <div *ngIf="formGroup.controls['password'].hasError('required') && formGroup.controls['password'].touched"
+              class="alert alert-danger">A senha é obrigatória.</div>
+            <div *ngIf="formGroup.controls['password'].hasError('minlength') && formGroup.controls['password'].touched"
+              class="alert alert-danger">A senha deve conter, pelo menos, 6 caracteres.</div>
+            <div *ngIf="formGroup.controls['password'].hasError('maxlength') && formGroup.controls['password'].touched"
+              class="alert alert-danger">A senha deve conter menos de 24 caracteres.</div>
+          </div>
+          <div class="text-center row" style="margin-top: 5em;">
+            <div class="col-6">
+              <button type="submit" [disabled]="!formGroup.valid" class="btn btn-block rounded-btn">Entrar</button>
+            </div>
+            <div class="col-6">
+              <button style="margin-left: 1em;" class="btn  btn-block rounded-btn"
+                [routerLink]="['/cadastrar']">Cadastrar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

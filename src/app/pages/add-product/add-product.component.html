@@ -1,0 +1,118 @@
+<app-header></app-header>
+
+<div class="main-container">
+  <div class="row">
+    <div class="col-xl-12">
+      <h4 class="title">
+        Adicionar produto
+      </h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+
+      <form role="form" [formGroup]="addProductForm">
+        <fieldset
+          [ngClass]="{'has-danger': addProductForm.controls['name'].invalid  && addProductForm.controls['name'].touched, 'has-success': addProductForm.controls['name'].valid  && addProductForm.controls['name'].touched}">
+          <label>Nome</label>
+          <input [(ngModel)]="product.name" class="form-control" [formControl]="addProductForm.controls['name']"
+            [ngClass]="{'form-control-danger': addProductForm.controls['name'].invalid  && addProductForm.controls['name'].touched, 'form-control-success': addProductForm.controls['name'].valid  && addProductForm.controls['name'].touched}">
+          <div *ngIf="addProductForm.controls['name'].hasError('required')  && addProductForm.controls['name'].touched"
+            class="alert alert-danger">
+            Digíte o nome do produto.
+          </div>
+          <div *ngIf="addProductForm.controls['name'].hasError('minlength')  && addProductForm.controls['name'].touched"
+            class="alert alert-danger">
+            O nome deve ter no mínimo 4 caracteres.
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group"
+          [ngClass]="{'has-danger': addProductForm.controls['description'].invalid  && addProductForm.controls['description'].touched, 'has-success': addProductForm.controls['description'].valid  && addProductForm.controls['description'].touched}">
+          <label>Descrição</label>
+          <textarea [(ngModel)]="product.description" class="form-control" rows="3"
+            [formControl]="addProductForm.controls['description']"
+            [ngClass]="{'form-control-danger': addProductForm.controls['description'].invalid  && addProductForm.controls['description'].touched, 'form-control-success': addProductForm.controls['description'].valid  && addProductForm.controls['description'].touched}"></textarea>
+          <div
+            *ngIf="addProductForm.controls['description'].hasError('required')  && addProductForm.controls['description'].touched"
+            class="alert alert-danger">
+            Digíte a descrição do produto.
+          </div>
+          <div
+            *ngIf="addProductForm.controls['description'].hasError('minlength')  && addProductForm.controls['description'].touched"
+            class="alert alert-danger">
+            A descrição deve ter no mínimo 10 caracteres.
+          </div>
+        </fieldset>
+        <fieldset class="form-group"
+          [ngClass]="{'has-danger': addProductForm.controls['price'].invalid  && addProductForm.controls['price'].touched, 'has-success': addProductForm.controls['price'].valid  && addProductForm.controls['price'].touched}">
+          <label>Preço</label>
+          <input [(ngModel)]="product.price" type="number" step="0.01" class="form-control"
+            [formControl]="addProductForm.controls['price']"
+            [ngClass]="{'form-control-danger': addProductForm.controls['price'].invalid  && addProductForm.controls['price'].touched, 'form-control-success': addProductForm.controls['price'].valid  && addProductForm.controls['price'].touched}">
+          <div
+            *ngIf="addProductForm.controls['price'].hasError('required')  && addProductForm.controls['price'].touched"
+            class="alert alert-danger">
+            Digíte o preço do produto.
+          </div>
+          <div
+            *ngIf="addProductForm.controls['price'].hasError('isCurrency')  && !addProductForm.controls['price'].hasError('required') && addProductForm.controls['price'].touched"
+            class="alert alert-danger">
+            Digite um preço válido. Utilize ponto como separador de centavos.
+          </div>
+        </fieldset>
+
+      </form>
+
+    </div>
+    <div class="col-lg-6">
+
+      <form role="form" [formGroup]="addProductForm">
+
+        <div class="form-group">
+          <label>Imagem do produto</label>
+          <div class="col-lg-6 offset-lg-3">
+
+            <label class="btn btn-secondary" style="width: 100%">
+              <i class="fa fa-upload"></i>
+              <input style="display:none" [formControl]="addProductForm.controls['image']" type="file" imageUpload
+                (imageSelected)="selected($event)" [resizeOptions]="resizeOptions">
+              Escolher Imagem
+            </label>
+          </div>
+          <div class="row">
+            <div class="col-xs-8 offset-xs-2">
+              <img style="margin-top:20px; width:100%" [src]="picture" [hidden]="!picture"><br>
+            </div>
+          </div>
+          
+          <div *ngIf="picError">
+            <br>
+            <div class="alert alert-danger">
+              Insira uma imagem para o produto.
+            </div>
+          </div>
+        </div>
+
+        <fieldset class="form-group"
+          [ngClass]="{'has-danger': addProductForm.controls['description'].invalid  && addProductForm.controls['description'].touched, 'has-success': addProductForm.controls['description'].valid  && addProductForm.controls['description'].touched}">
+          <label>Término</label>
+          <input type="datetime-local" [(ngModel)]="product.finalTime"
+            [formControl]="addProductForm.controls['finalTime']" class="form-control" required min="2016-01-01T00:00"
+            max="2100-01-01T23:59">
+          <div
+            *ngIf="addProductForm.controls['finalTime'].hasError('required')  && addProductForm.controls['finalTime'].touched"
+            class="alert alert-danger">
+            Digíte a data final.
+          </div>
+
+        </fieldset>
+        
+        <button style="margin-top: 1.2em;" (click)="createProduct()" [disabled]="!addProductForm.valid" type="button"
+          class="btn btn-primary">Cadastrar</button>
+      </form>
+
+    </div>
+  </div>
+</div>

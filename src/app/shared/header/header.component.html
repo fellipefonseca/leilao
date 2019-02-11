@@ -1,0 +1,18 @@
+<div class="pos-f-t fixed-top header top-navbar">
+  <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+    <button class="navbar-toggler navbar-toggler-right" (click)="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" [routerLink]="['/inicio']">Leilão Legal</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <form class="form-inline my-2 my-lg-0">
+        <button (click)="addItem()"  style="margin-left: 3em;" class="btn btn-outline-success my-2 my-sm-0" type="submit">Adicionar
+          Item</button>
+      </form>
+    </div>
+    <div *ngIf="user" style="color:white; float:right;width: 30em; margin-right: 2em;">Olá, {{user.login}}. <span (click)="logout()"
+        style="cursor:pointer; margin-left:1em; color: burlywood">Sair</span></div>
+  </nav>
+</div>
